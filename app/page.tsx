@@ -11,6 +11,19 @@ const supabase: SupabaseClient | null =
 
 const PHONE_REGEX = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
 
+function formatPhoneNumber(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
+
+const STYLES = {
+  label: "block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1",
+  input: "w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] focus:ring-2 focus:ring-[#00D0B4]/20 transition-all font-semibold text-[16px] placeholder:text-[#B0B8C1]",
+  select: "w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] transition-all font-semibold text-[16px] appearance-none cursor-pointer",
+} as const;
+
 export default function LandingPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -25,7 +38,8 @@ export default function LandingPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const nextValue = name === "phone_number" ? formatPhoneNumber(value) : value;
+    setFormData((prev) => ({ ...prev, [name]: nextValue }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -167,24 +181,24 @@ export default function LandingPage() {
                 <div className="space-y-7">
                   {/* 상호명 */}
                   <div className="group">
-                    <label htmlFor="business_name" className="block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1">상호명</label>
+                    <label htmlFor="business_name" className={STYLES.label}>상호명</label>
                     <input
                       id="business_name"
                       type="text" name="business_name" required value={formData.business_name} onChange={handleChange}
                       placeholder="예) 맛있는 닭꼬치"
                       autoComplete="organization"
-                      className="w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] focus:ring-2 focus:ring-[#00D0B4]/20 transition-all font-semibold text-[16px] placeholder:text-[#B0B8C1]"
+                      className={STYLES.input}
                     />
                   </div>
 
                   {/* 업종 */}
                   <div className="group">
-                    <label htmlFor="category" className="block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1">업종</label>
+                    <label htmlFor="category" className={STYLES.label}>업종</label>
                     <div className="relative">
                       <select
                         id="category"
                         name="category" value={formData.category} onChange={handleChange}
-                        className="w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] transition-all font-semibold text-[16px] appearance-none cursor-pointer"
+                        className={STYLES.select}
                       >
                         <option value="푸드트럭">🚚 푸드트럭</option>
                         <option value="플리마켓 셀러">💎 플리마켓 셀러</option>
@@ -196,24 +210,25 @@ export default function LandingPage() {
 
                   {/* 연락처 */}
                   <div className="group">
-                    <label htmlFor="phone_number" className="block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1">연락처</label>
+                    <label htmlFor="phone_number" className={STYLES.label}>연락처</label>
                     <input
                       id="phone_number"
                       type="tel" name="phone_number" required value={formData.phone_number} onChange={handleChange}
                       placeholder="010-0000-0000"
                       autoComplete="tel"
-                      className="w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] focus:ring-2 focus:ring-[#00D0B4]/20 transition-all font-semibold text-[16px] placeholder:text-[#B0B8C1]"
+                      inputMode="numeric"
+                      className={STYLES.input}
                     />
                   </div>
 
                   {/* 주 활동 지역 */}
                   <div className="group">
-                    <label htmlFor="region" className="block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1">주 활동 지역</label>
+                    <label htmlFor="region" className={STYLES.label}>주 활동 지역</label>
                     <div className="relative">
                       <select
                         id="region"
                         name="region" value={formData.region} onChange={handleChange}
-                        className="w-full h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F3F1] transition-all font-semibold text-[16px] appearance-none cursor-pointer"
+                        className={STYLES.select}
                       >
                         <option value="전국구(지역상관없음)">전국구(지역상관없음)</option>
                         <option value="서울">서울</option>
