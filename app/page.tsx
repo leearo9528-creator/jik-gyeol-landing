@@ -109,11 +109,11 @@ export default function LandingPage() {
           <span className="inline-block bg-[#E8F3F1] text-[#00D0B4] text-[13px] font-bold px-3 py-1 rounded-md">
             OUR STORY
           </span>
-          <h2 className="text-[32px] font-bold leading-[1.35] tracking-[-0.07em]">
-            <span className="text-[#191F28]">에이전시 배불리기는</span><br />
-            <span className="text-[#00D0B4]">이제 끝났습니다.</span>
+          <h2 className="text-[28px] sm:text-[32px] font-bold leading-[1.35] tracking-[-0.07em] break-keep">
+            <span className="text-[#191F28] whitespace-nowrap">에이전시 배불리기는</span><br />
+            <span className="text-[#00D0B4] whitespace-nowrap">이제 끝났습니다.</span>
           </h2>
-          <p className="text-[#4E5968] text-[17px] leading-[1.6] font-medium">
+          <p className="text-[#4E5968] text-[15px] sm:text-[17px] leading-[1.6] font-medium break-keep">
             행사 한 번 뛸 때마다 가져가던 수수료.<br />
             고인물들끼리의 일거리 돌려먹기.<br />
             <span className="text-[#00D0B4] font-bold">직행</span>은 모두에게 정당한 구조를 만들고 싶습니다.
@@ -122,17 +122,17 @@ export default function LandingPage() {
 
         {/* 브랜드 철학 박스 (토스 특유의 입체감 없는 면 분할) */}
         <div className="bg-white p-7 rounded-[28px] border border-[#F2F4F6] space-y-5">
-          <h3 className="text-[18px] font-bold text-[#191F28] flex items-center gap-2">
+          <h3 className="text-[16px] sm:text-[18px] font-bold text-[#191F28] flex items-center gap-2 flex-wrap break-keep">
             <span>🔥</span>
             <span className="text-[#00D0B4] text-[1.2em] font-bold leading-none align-middle mr-[-0.22em]">직행</span><span className="tracking-[-0.18em]">은</span> 현장에서 뛰어본 사람들이 만듭니다
           </h3>
-          <p className="text-[15px] text-[#4E5968] leading-[1.65] font-medium">
+          <p className="text-[14px] sm:text-[15px] text-[#4E5968] leading-[1.65] font-medium break-keep">
             행사 바닥에서 직접 매대를 펴고 현장을 뛰었습니다. 새벽부터 재료를 준비하고, 더위와 추위를 버티며 일한 수익의 일부를 전화 몇 통 돌린 에이전시가 가져가는 것을 보며 뼈저리게 느꼈습니다.
           </p>
-          <strong className="block text-center text-[#00D0B4] font-bold text-[17px]">
+          <strong className="block text-center text-[#00D0B4] font-bold text-[15px] sm:text-[17px] break-keep">
             "땀 흘린 사장님이 온전히 돈을 버는 구조를 만들자."
           </strong>
-          <p className="text-[15px] text-[#4E5968] leading-[1.65] font-medium">
+          <p className="text-[14px] sm:text-[15px] text-[#4E5968] leading-[1.65] font-medium break-keep">
             이것이 직행의 철학입니다.
           </p>
         </div>
@@ -158,9 +158,9 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="space-y-8">
-              <h3 className="text-[24px] font-bold text-center leading-tight">
-                수수료 0원 행사 매칭,<br/>
-                <span className="text-[#00D0B4]">지금 바로 탑승하세요 🚀</span>
+              <h3 className="text-[20px] sm:text-[24px] font-bold text-center leading-tight break-keep">
+                <span className="whitespace-nowrap">수수료 0원 행사 매칭,</span><br/>
+                <span className="text-[#00D0B4] whitespace-nowrap">지금 바로 탑승하세요 🚀</span>
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
