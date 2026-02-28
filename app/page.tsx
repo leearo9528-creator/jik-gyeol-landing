@@ -81,7 +81,6 @@ export default function LandingPage() {
   const handleShare = async () => {
     const shareData = {
       title: "직결 - 수수료 0원 행사 매칭 플랫폼",
-      text: "사장님 3초만에 수수료 0원 혜택에 탑승하세요 !",
       url: window.location.href,
     };
     try {
