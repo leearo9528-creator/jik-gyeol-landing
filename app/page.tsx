@@ -208,19 +208,21 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen min-h-[100dvh] bg-[#F9FAFB] text-[#191F28] font-sans antialiased tracking-[-0.05em]">
-      <header className="max-w-md mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col justify-center items-center sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-[#F2F4F6] gap-1">
-        <div className="flex items-end justify-center gap-1.5 flex-wrap">
-          <h1 className="text-[22px] font-bold tracking-[-0.06em] text-[#191F28] leading-none">
-            직결<span className="text-[#3182F6]">.</span>
-          </h1>
-          <span className="text-[11px] min-[375px]:text-[12px] sm:text-[13px] font-medium text-[#8B95A1] tracking-[-0.02em] leading-none break-keep">
-            가장 투명하고 빠른 다이렉트 매칭 플랫폼,
-          </span>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#F2F4F6]">
+        <div className="max-w-md mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col justify-center items-center gap-1">
+          <div className="flex items-end justify-center gap-1.5 flex-wrap">
+            <h1 className="text-[22px] font-bold tracking-[-0.06em] text-[#191F28] leading-none">
+              직결<span className="text-[#3182F6]">.</span>
+            </h1>
+            <span className="text-[11px] min-[375px]:text-[12px] sm:text-[13px] font-medium text-[#8B95A1] tracking-[-0.02em] leading-none break-keep">
+              가장 투명하고 빠른 다이렉트 매칭 플랫폼,
+            </span>
+          </div>
         </div>
       </header>
 
       <main
-        className="max-w-md mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-24 space-y-12 sm:space-y-14"
+        className="max-w-md mx-auto px-4 sm:px-6 pt-[72px] sm:pt-[80px] pb-24 space-y-12 sm:space-y-14"
         style={{ paddingBottom: "max(6rem, env(safe-area-inset-bottom))" }}
       >
         {/* 히어로 섹션 */}
@@ -287,7 +289,9 @@ export default function LandingPage() {
               수수료 0원, 빠르고 투명한 1:1 다이렉트 매칭 <span className="text-[#3182F6]">직결</span>.
             </h3>
             <p className="text-[#4E5968] text-[15px] sm:text-[16px] font-medium leading-[1.65] break-keep">
-              가장 좋은 파트너와 행사 일정은 빠르게 마감됩니다. 지금 바로 사전등록하고 혜택을 선점하세요.
+              가장 좋은 파트너와 행사 일정은 빠르게 마감됩니다.
+            <br />
+            지금 바로 사전등록하고 혜택을 선점하세요.
             </p>
           </section>
           {isSuccess ? (
