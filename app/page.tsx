@@ -208,10 +208,15 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen min-h-[100dvh] bg-[#F9FAFB] text-[#191F28] font-sans antialiased tracking-[-0.05em]">
-      <header className="max-w-md mx-auto px-4 sm:px-6 py-4 sm:py-5 flex justify-center items-center sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-[#F2F4F6]">
-        <h1 className="text-[22px] font-bold tracking-[-0.06em] text-[#191F28]">
-          직결<span className="text-[#3182F6]">.</span>
-        </h1>
+      <header className="max-w-md mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col justify-center items-center sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-[#F2F4F6] gap-1">
+        <div className="flex items-end justify-center gap-1.5 flex-wrap">
+          <h1 className="text-[22px] font-bold tracking-[-0.06em] text-[#191F28] leading-none">
+            직결<span className="text-[#3182F6]">.</span>
+          </h1>
+          <span className="text-[11px] min-[375px]:text-[12px] sm:text-[13px] font-medium text-[#8B95A1] tracking-[-0.02em] leading-none break-keep">
+            가장 투명하고 빠른 다이렉트 매칭 플랫폼,
+          </span>
+        </div>
       </header>
 
       <main
