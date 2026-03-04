@@ -91,12 +91,32 @@ const FORM_CONFIG: Record<
   },
 };
 
+/* 토스 스타일 통일: 글꼴·색상·크기 */
 const STYLES = {
-  label: "block text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1",
+  /* 타이포 */
+  heroTitle:
+    "text-[20px] min-[375px]:text-[22px] sm:text-[26px] font-bold leading-[1.5] tracking-[-0.06em] break-keep text-[#191F28]",
+  sectionTitle:
+    "text-[20px] sm:text-[22px] font-bold text-[#191F28] break-keep leading-[1.4]",
+  cardTitle: "text-[18px] sm:text-[20px] font-bold text-[#191F28] break-keep leading-[1.45]",
+  body: "text-[15px] sm:text-[16px] font-medium leading-[1.65] break-keep text-[#191F28]",
+  bodySecondary: "text-[15px] sm:text-[16px] font-medium leading-[1.65] break-keep text-[#4E5968]",
+  bodySmall: "text-[14px] sm:text-[15px] font-medium leading-[1.6] break-keep text-[#4E5968]",
+  label: "text-[14px] font-semibold text-[#8B95A1] mb-2 ml-1 block",
+  caption: "text-[13px] sm:text-[14px] font-bold text-[#3182F6] break-keep",
+  /* 카드/박스 */
+  box: "w-full rounded-[20px] p-6 sm:p-7 border border-[#E8ECF4] shadow-sm",
+  boxGray: "w-full rounded-[20px] p-6 sm:p-7 bg-[#F7F9FC] border border-[#E8ECF4] shadow-sm",
+  boxWhite: "w-full rounded-[20px] p-6 sm:p-7 bg-white border border-[#E8ECF4] shadow-sm",
+  /* 폼 */
   input:
     "w-full min-h-[48px] h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F4FF] focus:ring-2 focus:ring-[#3182F6]/20 transition-all font-semibold text-[16px] placeholder:text-[#B0B8C1] [font-size:16px]",
   select:
     "w-full min-h-[48px] h-[58px] px-5 rounded-[16px] bg-[#F2F4F6] border-none outline-none focus:bg-[#E8F4FF] transition-all font-semibold text-[16px] appearance-none cursor-pointer [font-size:16px]",
+  btnPrimary:
+    "w-full h-[64px] bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[17px] sm:text-[18px] rounded-[20px] shadow-sm active:scale-[0.98] transition-all disabled:opacity-50",
+  btnSecondary:
+    "w-full py-4 px-4 bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[15px] sm:text-[16px] rounded-[18px] active:scale-[0.97] transition-all",
 } as const;
 
 export default function LandingPage() {
@@ -131,10 +151,6 @@ export default function LandingPage() {
       category: nextConfig.categoryOptions[0]?.value ?? "",
       region: nextConfig.regionOptions[0]?.value ?? "",
     }));
-  }, []);
-
-  const scrollToForm = useCallback(() => {
-    formSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   const handleSubmit = useCallback(
@@ -177,7 +193,7 @@ export default function LandingPage() {
   const handleShare = useCallback(async () => {
     const url = window.location.href;
     const shareData = {
-      title: "직결 - 수수료 0원 행사 매칭 플랫폼",
+      title: "직결 - 행사 매칭 플랫폼",
       url,
     };
 
@@ -206,15 +222,17 @@ export default function LandingPage() {
   const categoryValue = formData.category || (config.categoryOptions[0]?.value ?? "");
   const regionValue = formData.region || (config.regionOptions[0]?.value ?? "");
 
+  const contentPadding = "px-4 min-[400px]:px-5 sm:px-6";
+
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-[#F9FAFB] text-[#191F28] font-sans antialiased tracking-[-0.05em]">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#F2F4F6]">
-        <div className="max-w-md mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col justify-center items-center gap-1">
+    <div className="min-h-screen min-h-[100dvh] bg-[#F9FAFB] text-[#191F28] font-sans antialiased tracking-[-0.05em] flex flex-col items-center overflow-x-hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/90 backdrop-blur-xl border-b border-[#F2F4F6] safe-area-top">
+        <div className={`max-w-md w-full mx-auto ${contentPadding} py-4 sm:py-5 flex flex-col justify-center items-center gap-1 text-center`}>
           <div className="flex items-end justify-center gap-1.5 flex-wrap">
             <h1 className="text-[22px] font-bold tracking-[-0.06em] text-[#191F28] leading-none">
               직결<span className="text-[#3182F6]">.</span>
             </h1>
-            <span className="text-[11px] min-[375px]:text-[12px] sm:text-[13px] font-medium text-[#8B95A1] tracking-[-0.02em] leading-none break-keep">
+            <span className="text-[12px] sm:text-[13px] font-medium text-[#8B95A1] tracking-[-0.02em] leading-none break-keep">
               가장 투명하고 빠른 다이렉트 매칭 플랫폼,
             </span>
           </div>
@@ -222,86 +240,117 @@ export default function LandingPage() {
       </header>
 
       <main
-        className="max-w-md mx-auto px-4 sm:px-6 pt-[72px] sm:pt-[80px] pb-24 space-y-12 sm:space-y-14"
-        style={{ paddingBottom: "max(6rem, env(safe-area-inset-bottom))" }}
+        className={`w-full max-w-md mx-auto ${contentPadding} main-content-offset pb-20 sm:pb-24 flex flex-col items-center`}
+        style={{ paddingBottom: "max(5rem, env(safe-area-inset-bottom))" }}
       >
+        <div className="w-full flex flex-col items-center space-y-12 sm:space-y-14">
         {/* 히어로 섹션 */}
-        <section className="space-y-5 text-center">
-          <h2 className="text-[20px] min-[375px]:text-[22px] sm:text-[26px] font-bold leading-[1.5] tracking-[-0.06em] break-keep text-[#191F28]">
-            <span className="text-[#3182F6]">불필요한 중간 마진</span>은 없애고,
+        <section className="w-full space-y-5 text-center">
+          <h2 className={STYLES.heroTitle}>
+            <span className="text-[#3182F6]">불필요한 마진</span>은 걷어내고,
             <br />
-            <span className="text-[#3182F6]">전문성</span>은 높였습니다.
+            <span className="text-[#3182F6]">파트너의 가치</span>는 높였습니다.
           </h2>
-          <p className="text-[#4E5968] text-[14px] min-[375px]:text-[15px] sm:text-[16px] leading-[1.65] font-medium break-keep">
-            수많은 검색과 전화,
+          <p className={STYLES.bodySecondary}>
+            행사 담당자와 검증된 파트너가
             <br />
-            비효율적인 대행구조는 이제 그만.
-            <br />
-            행사 담당자와 검증된 파트너를 잇는
-            <br />
-            가장 투명하고 빠른 다이렉트 매칭 플랫폼,
-            <br />
-            <span className="text-[#3182F6] font-bold text-[18px] min-[375px]:text-[20px] sm:text-[22px]">직결</span>.
+            직접 만나는 가장 투명한 방법, <span className="text-[#3182F6] font-bold text-[18px] sm:text-[20px]">직결</span>.
           </p>
-          <button
-            type="button"
-            onClick={scrollToForm}
-            className="w-full max-w-[320px] mx-auto h-[56px] bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[17px] rounded-[16px] shadow-sm active:scale-[0.98] transition-all"
-            aria-label="폼 섹션으로 이동"
-          >
-            3초만에 무료 등록하기
-          </button>
         </section>
 
-        {/* 고충 공감 섹션 */}
-        <section className="space-y-4">
-          <h3 className="text-[17px] sm:text-[18px] font-bold text-[#191F28] text-center break-keep leading-[1.5]">
-            행사 준비의 비효율, <span className="text-[#3182F6]">직결</span>이 해결합니다.
-          </h3>
-
+        {/* 고충 공감 섹션 (위 여백 절반으로 축소) */}
+        <section className="w-full space-y-4 -mt-6 sm:-mt-7">
           <div className="space-y-4">
-            {/* 박스 1: 행사 주최사/고객사 */}
-            <div className="w-full rounded-[20px] p-6 sm:p-7 bg-[#F7F9FC] border border-[#E8ECF4] shadow-sm text-center">
-              <p className="text-[13px] font-bold text-[#3182F6] mb-3 break-keep">
-                🏢 주최사 및 행사 담당자의 고민
-              </p>
-              <p className="text-[15px] sm:text-[16px] text-[#191F28] font-medium leading-[1.65] break-keep whitespace-normal">
-                행사 예산에 맞는 업체를 일일이 검색하고 견적을 비교하는 과정, 시간과 리소스 낭비가 크셨을 겁니다. 대행사에 온전히 맡기자니 소통의 지연과 아쉬운 결과물로 난감했던 경험, 이제는 끝내야 합니다. 직결에서는 단 한 번의 공고 등록으로 검증된 파트너들의 맞춤 견적을 직접 받아볼 수 있습니다.
-              </p>
-            </div>
-
-            {/* 박스 2: 행사 파트너/사장님 */}
-            <div className="w-full rounded-[20px] p-6 sm:p-7 bg-white border border-[#E8ECF4] shadow-sm text-center">
-              <p className="text-[13px] font-bold text-[#3182F6] mb-3 break-keep">
-                🧑‍🍳 케이터링 및 전문 파트너의 고민
-              </p>
-              <p className="text-[15px] sm:text-[16px] text-[#191F28] font-medium leading-[1.65] break-keep whitespace-normal">
-                현장에서 땀 흘리며 최고의 서비스를 제공하는 것은 파트너님들입니다. 하지만 20~30%에 달하는 과도한 대행 수수료 구조 탓에, 노력한 만큼의 수익을 보장받기 어려우셨을 겁니다. 직결은 평생 수수료 0원입니다. 주최사와 직접 소통하며 온전한 비즈니스 성장을 경험하세요.
-              </p>
+            {/* 한 박스: 담당자 고민 → 파트너 고민 → 직결 답 (순서) */}
+            <div className={`${STYLES.boxGray} text-center space-y-5`}>
+              <div>
+                <p className={`${STYLES.caption} mb-3`}>🏢 행사 담당자의 고민</p>
+                <p className={`${STYLES.body} whitespace-normal`}>
+                  행사 예산에 맞는 업체를 찾고 견적을 비교하는 일, 그동안 얼마나 많은 리소스를 쓰셨나요?
+                  <br />
+                  대행사에 맡겨도 소통은 느리고 결과물은 아쉬웠던 경험, 이제는 끝낼 때가 됐습니다.
+                  <br />
+                  공고 하나만 올리세요. 검증된 파트너들이 제안하는 맞춤 견적을 앉아서 받아볼 수 있습니다.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-[#E8ECF4]">
+                <p className={`${STYLES.caption} mb-3`}>🧑‍🍳 행사 파트너의 고민</p>
+                <p className={`${STYLES.body} whitespace-normal`}>
+                  매일 공고 찾으러 다니는 시간, 아깝지 않으셨나요?
+                  <br />
+                  나에게 꼭 맞는 행사를 찾기 위해 쏟았던 불필요한 에너지를 줄여보세요. 직결에서는 내 조건에 맞는 공고만 쏙쏙 골라 투명하게 입찰할 수 있습니다.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-[#E8ECF4]">
+                <p className={`${STYLES.caption} mb-3`}>✨ 직결이 답합니다</p>
+                <p className={`${STYLES.body} whitespace-normal`}>
+                  주최사는 공고 하나로 견적을 받고,
+                  <br />
+                  파트너는 조건에 맞는 공고만 골라 입찰합니다.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
+        {/* 쓰리 스텝: 공고 등록 → 견적 비교 → 직결 진행 */}
+        <section className="w-full space-y-0">
+          <h3 className={`${STYLES.sectionTitle} text-center mb-5 sm:mb-6`}>직결의 시스템</h3>
+          <div className={`${STYLES.boxWhite} text-left`}>
+            <p className="text-[12px] font-bold text-[#3182F6] mb-2 break-keep">Step 1</p>
+            <p className="text-[16px] sm:text-[17px] font-bold text-[#191F28] mb-2 break-keep">📝 공고 등록</p>
+            <p className="text-[14px] font-bold text-[#191F28] mb-1.5 break-keep">행사 조건, 딱 한 번만 입력하세요.</p>
+            <p className={STYLES.bodySmall}>장소·시간·예산만 적으면 끝.<br />카페·오픈채팅에 반복 올릴 필요 없어요.</p>
+          </div>
+          <div className="flex justify-center py-1" aria-hidden>
+            <span className="text-2xl text-[#3182F6]">↓</span>
+          </div>
+          <div className={`${STYLES.boxWhite} text-left`}>
+            <p className="text-[12px] font-bold text-[#3182F6] mb-2 break-keep">Step 2</p>
+            <p className="text-[16px] sm:text-[17px] font-bold text-[#191F28] mb-2 break-keep">📋 견적 비교</p>
+            <p className="text-[14px] font-bold text-[#191F28] mb-1.5 break-keep">앉아서 투명한 견적을 받아보세요.</p>
+            <p className={STYLES.bodySmall}>검증된 파트너가 직접 견적 제안.<br />가격·서비스를 한눈에 비교하고 딱 맞는 파트너만 고르면 됩니다.</p>
+          </div>
+          <div className="flex justify-center py-1" aria-hidden>
+            <span className="text-2xl text-[#3182F6]">↓</span>
+          </div>
+          <div className={`${STYLES.boxWhite} text-left`}>
+            <p className="text-[12px] font-bold text-[#3182F6] mb-2 break-keep">Step 3</p>
+            <p className="text-[16px] sm:text-[17px] font-bold text-[#191F28] mb-2 break-keep">🤝 직결 및 진행</p>
+            <p className="text-[14px] font-bold text-[#191F28] mb-1.5 break-keep">중간 마진 없이, 파트너와 직접 만나세요.</p>
+            <p className={STYLES.bodySmall}>견적 선택 시 파트너와 즉시 연결.<br />대행 수수료 없이 투명하게 행사를 마무리하세요.</p>
+          </div>
+        </section>
+
+        {/* 공정한 장터 / 투명한 정보 섹션 (고충 박스와 글꼴·색상 통일) */}
+        <section className={`w-full ${STYLES.boxGray} text-center space-y-5`}>
+          <div>
+            <h3 className={STYLES.cardTitle}>부르는 게 값이었던 시장, 직결이 바꿉니다</h3>
+            <p className={`${STYLES.caption} mb-3 mt-1`}>정보가 독점되면 시장은 병듭니다</p>
+            <p className="text-[14px] sm:text-[15px] font-medium leading-[1.65] break-keep text-[#191F28] whitespace-normal text-left">
+              우리는 불투명한 정보 독점을 해결합니다. 직결은 단순히 연결만 하는 대행사가 아닙니다. 정보가 한쪽으로 쏠려 부르는 게 값이었던 &apos;깜깜이 시장&apos;을 누구나 참여할 수 있는 &apos;투명한 장터&apos;로 바꿉니다. 우리는 건강한 매칭 생태계를 유지하기 위한 최소한의 시스템 운영만 고민합니다.
+            </p>
+          </div>
+        </section>
+
         {/* 해결책 & 액션 유도 + 폼 섹션 */}
-        <div ref={formSectionRef} className="pt-2 scroll-mt-6 space-y-6">
-          <section className="text-center space-y-2">
-            <h3 className="text-[20px] sm:text-[22px] font-bold text-[#191F28] break-keep leading-[1.4]">
-              수수료 0원, 빠르고 투명한 1:1 다이렉트 매칭 <span className="text-[#3182F6]">직결</span>.
+        <div ref={formSectionRef} className="w-full scroll-mt-6 space-y-6">
+          <section className="w-full text-center space-y-3 sm:space-y-4">
+            <h3 className={STYLES.sectionTitle}>
+              빠르고 투명한 1:1 다이렉트 매칭 <span className="text-[#3182F6]">직결</span>.
             </h3>
-            <p className="text-[#4E5968] text-[15px] sm:text-[16px] font-medium leading-[1.65] break-keep">
+            <p className={STYLES.bodySecondary}>
               가장 좋은 파트너와 행사 일정은 빠르게 마감됩니다.
             <br />
             지금 바로 사전등록하고 혜택을 선점하세요.
             </p>
           </section>
           {isSuccess ? (
-            <div className="bg-white p-8 sm:p-10 rounded-[28px] text-center border border-[#F2F4F6] animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
+            <div className="bg-white p-8 sm:p-10 rounded-[24px] text-center border border-[#E8ECF4] shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
               <div className="text-5xl" aria-hidden>🎉</div>
-              <h2 className="text-[22px] sm:text-[24px] font-bold text-[#191F28] leading-tight break-keep">
-                사전등록이 완료되었어요 🎉
-              </h2>
-              <p className="text-[#4E5968] text-[15px] sm:text-[16px] font-medium leading-[1.6] break-keep">
-                수수료 0원 혜택이 적용되었습니다.
+              <h2 className={STYLES.sectionTitle}>사전등록이 완료되었어요 🎉</h2>
+              <p className={STYLES.bodySecondary}>
+                사전등록 혜택이 적용되었습니다.
                 <br />
                 런칭 즉시 1순위로 매칭 소식을 보내드릴게요.
               </p>
@@ -318,7 +367,7 @@ export default function LandingPage() {
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="w-full bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold py-4 px-4 rounded-[18px] active:scale-[0.97] transition-all text-[15px] sm:text-[16px] leading-tight break-keep"
+                  className={STYLES.btnSecondary}
                   aria-label="주변 사장님·담당자에게 공유하기"
                 >
                   주변 사장님·담당자에게 공유하기
@@ -338,7 +387,7 @@ export default function LandingPage() {
                   <button
                     type="button"
                     onClick={() => handleUserTypeChange("고객사")}
-                    className="relative z-10 py-3.5 px-4 rounded-[11px] text-[14px] font-bold transition-colors duration-200"
+                    className="relative z-10 min-h-[44px] py-3.5 sm:py-3.5 px-4 rounded-[11px] text-[14px] font-bold transition-colors duration-200"
                     style={{
                       color: userType === "고객사" ? "#191F28" : "#8B95A1",
                     }}
@@ -349,7 +398,7 @@ export default function LandingPage() {
                   <button
                     type="button"
                     onClick={() => handleUserTypeChange("사장님")}
-                    className="relative z-10 py-3.5 px-4 rounded-[11px] text-[14px] font-bold transition-colors duration-200"
+                    className="relative z-10 min-h-[44px] py-3.5 sm:py-3.5 px-4 rounded-[11px] text-[14px] font-bold transition-colors duration-200"
                     style={{
                       color: userType === "사장님" ? "#191F28" : "#8B95A1",
                     }}
@@ -456,18 +505,19 @@ export default function LandingPage() {
                   type="submit"
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}
-                  className="w-full h-[64px] bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[18px] rounded-[20px] mt-2 shadow-sm active:scale-[0.98] transition-all disabled:opacity-50"
+                  className={`${STYLES.btnPrimary} mt-2`}
                 >
-                  {isSubmitting ? "전송 중..." : "0원 혜택 탑승하기 🚀"}
+                  {isSubmitting ? "전송 중..." : "사전등록하기 🚀"}
                 </button>
               </form>
             </div>
           )}
         </div>
 
-        <p className="pt-6 text-center text-[#B0B8C1] text-[13px] font-semibold tracking-widest uppercase">
+        <p className="text-center text-[#8B95A1] text-[13px] font-medium tracking-widest uppercase">
           © 2026 직결. All rights reserved.
         </p>
+        </div>
       </main>
     </div>
   );

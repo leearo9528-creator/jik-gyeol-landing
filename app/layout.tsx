@@ -12,19 +12,19 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
+  themeColor: "#3182F6",
 };
 
 export const metadata: Metadata = {
-  title: "직결 - 수수료 0원 행사 매칭 플랫폼",
+  title: "직결 - 행사 매칭 플랫폼",
   description: "",
-  themeColor: "#3182F6",
   openGraph: {
-    title: "직결 - 수수료 0원 행사 매칭 플랫폼",
+    title: "직결 - 행사 매칭 플랫폼",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "직결 - 수수료 0원 행사 매칭 플랫폼",
+    title: "직결 - 행사 매칭 플랫폼",
   },
 };
 
